@@ -6,7 +6,7 @@ import Input from '../input/input';
 import './userDetails.css';
 
 const UserDetails = ({ firstName, lastName, handleChange, handleBlur, values }) => {
-  const renderInput = (fieldName, label) => {
+  const renderInput = (label, fieldName) => {
     return (
       <div>
         <Input
