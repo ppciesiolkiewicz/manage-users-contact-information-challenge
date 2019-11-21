@@ -13,7 +13,6 @@ const App = ({ match: { params: { userId } } }) => {
   const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
-    console.log(userId)
     fetchUserData(userId)
       .then(setUser)
       .catch(() => setFetchError('Fetching data failed'))
