@@ -27,5 +27,9 @@ users.insert(
 ));
 
 module.exports = {
-  getById: id => users.find({ id })[0],
+  getById: id => users.findOne({ id }),
+  update: user => {
+    const { id } = user;
+    users.updateWhere(() => ({ $id: id }), user);
+  },
 };

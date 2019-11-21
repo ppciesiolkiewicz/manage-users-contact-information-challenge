@@ -5,12 +5,32 @@ import UserDetails from './components/userDetails/userDetails';
 
 import './app.css';
 
-function App() {
+const getUserUrl = (id = '') => `http://localhost:1337/users/${id}`;
+
+const fetchUserData = async id => {
+  return fetch(getUserUrl(id))
+    .then(res => res.json());
+};
+
+const postUserData = async user => {
+  fetch(getUserUrl(),
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    },
+  )
+    .then(res => res.json());
+};
+
+const USER_ID = 1;
+const App = () => {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
-    const url = 'http://localhost:1337/users/1';
-    fetch(url)
-      .then(res => res.json())
+    fetchUserData(USER_ID)
       .then(setUser)
       .catch(console.log)
   }, [])
@@ -23,7 +43,11 @@ function App() {
     <div className="app">
       <Formik
         initialValues={user}
-        onSubmit={(values, actions) => {}}
+        onSubmit={values => {
+          postUserData(values)
+            .then(console.log)
+            .catch(console.log);
+        }}
       >
         {({
           handleChange,

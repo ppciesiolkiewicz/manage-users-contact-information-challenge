@@ -1,7 +1,7 @@
 import React from 'react';
 import './input.css'
 
-const Input = ({ label, onChange, onBlur, name, value }) => console.log(value) || (
+const Input = ({ label, onChange, onBlur, name, value }) => (
   <div className="input">
     <label>{label}</label>
     <input

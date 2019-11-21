@@ -5,12 +5,15 @@ const users = require('../model/users');
 
 
 router.get('/:id', (req, res, next) => {
-  const { id } = req.params;
+  const { params: { id } } = req;
   res.json(users.getById(id));
 });
 
 router.put('/', (req, res, next) => {
-  res.send('respond with a resource');
+  const { body } = req;
+  console.log(body)
+  users.update(body);
+  res.send(true);
 });
 
 module.exports = router;
