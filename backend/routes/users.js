@@ -11,7 +11,6 @@ router.get('/:id', (req, res, next) => {
 
 router.put('/', (req, res, next) => {
   const { body } = req;
-  console.log(body)
   users.update(body);
   res.send(true);
 });
