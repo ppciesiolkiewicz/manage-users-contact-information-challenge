@@ -1,0 +1,10 @@
+
+
+.userDetailsContainer {
+  width: 100%;
+}
+
+.userDetails {
+  display: flex;
+  justify-content: space-between;
+}
