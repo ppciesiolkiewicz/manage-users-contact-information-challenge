@@ -2,41 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import Address from './components/address/address';
 import UserDetails from './components/userDetails/userDetails';
+import { fetchUserData, postUserData } from './helpers/requests/users';
 
 import './app.css';
 
-const getUserUrl = (id = '') => `http://localhost:1337/users/${id}`;
-
-const fetchUserData = async id => {
-  return fetch(getUserUrl(id))
-    .then(res => res.json());
-};
-
-const postUserData = async user => {
-  fetch(getUserUrl(),
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    },
-  )
-    .then(res => res.json());
-};
 
 const USER_ID = 1;
 const App = () => {
   const [user, setUser] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
     fetchUserData(USER_ID)
       .then(setUser)
-      .catch(console.log)
+      .catch(() => setFetchError('Fetching data failed'))
   }, [])
 
+  if (fetchError) {
+    console.log("RETURNIGN ERROR")
+    return <div>something went wrong</div>;
+  }
+
   if (!user) {
-    return <div>'loading...'</div>;
+    return <div>loading...</div>;
   }
 
   return (
@@ -45,8 +33,7 @@ const App = () => {
         initialValues={user}
         onSubmit={values => {
           postUserData(values)
-            .then(console.log)
-            .catch(console.log);
+            .catch(() => setFetchError('Data update failed'))
         }}
       >
         {({
