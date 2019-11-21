@@ -6,7 +6,7 @@ export const fetchUserData = async id => {
 };
 
 export const postUserData = async user => {
-  fetch(getUserUrl(),
+  return fetch(getUserUrl(),
     {
       method: 'PUT',
       headers: {
