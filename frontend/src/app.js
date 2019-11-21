@@ -1,34 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import Address from './components/address/address';
 import UserDetails from './components/userDetails/userDetails';
 
 import './app.css';
 
-const initialValues = {
-  shippingAddress: {
-    country: '',
-    streetName: '',
-    streetNumber: '',
-    city: '',
-    postalCode: '',
-    phone: '',
-  },
-  billingAddress: {
-    country: '',
-    streetName: '',
-    streetNumber: '',
-    city: '',
-    postalCode: '',
-    phone: '',
-  },
-}
-
 function App() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const url = 'http://localhost:1337/users/1';
+    fetch(url)
+      .then(res => res.json())
+      .then(setUser)
+      .catch(console.log)
+  }, [])
+
+  if (!user) {
+    return <div>'loading...'</div>;
+  }
+
   return (
     <div className="app">
       <Formik
-        initialValues={initialValues}
+        initialValues={user}
         onSubmit={(values, actions) => {}}
       >
         {({

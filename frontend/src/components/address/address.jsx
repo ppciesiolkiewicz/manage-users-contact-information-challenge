@@ -7,8 +7,9 @@ import './address.css';
 
 
 const Address = ({ sectionName, headline, handleChange, handleBlur, values }) => {
-  const renderInput = (fieldName, label) => {
+  const renderInput = (label, fieldName) => {
     const fullFieldName = `${sectionName}.${fieldName}`;
+
     return (
       <div>
         <Input

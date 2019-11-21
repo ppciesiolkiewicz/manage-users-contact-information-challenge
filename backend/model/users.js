@@ -10,7 +10,7 @@ const AMOUNT_OF_USERS_TO_GENERATE = 100;
 const generateRandomAddress = () => ({
   country: faker.address.country(),
   streetName: faker.address.streetName(),
-  streetNumber: faker.random.number(),
+  streetNumber: faker.random.number().toString(),
   city: faker.address.city(),
   postalCode: faker.address.zipCode(),
   phone: faker.phone.phoneNumber(),
@@ -27,5 +27,5 @@ users.insert(
 ));
 
 module.exports = {
-  getById: id => sers.find({ id })[0],
+  getById: id => users.find({ id })[0],
 };
