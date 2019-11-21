@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import Address from './components/address/address';
 import UserDetails from './components/userDetails/userDetails';
 
-import './App.css';
+import './app.css';
 
 const initialValues = {
   shippingAddress: {
@@ -26,7 +26,7 @@ const initialValues = {
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {}}
