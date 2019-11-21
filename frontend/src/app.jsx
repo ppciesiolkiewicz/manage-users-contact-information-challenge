@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { shape, string } from 'prop-types';
 import { Formik } from 'formik';
 import Address from './components/address/address';
 import UserDetails from './components/userDetails/userDetails';
@@ -7,19 +8,18 @@ import { fetchUserData, postUserData } from './helpers/requests/users';
 import './app.css';
 
 
-const USER_ID = 1;
-const App = () => {
+const App = ({ match: { params: { userId } } }) => {
   const [user, setUser] = useState(null);
   const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
-    fetchUserData(USER_ID)
+    console.log(userId)
+    fetchUserData(userId)
       .then(setUser)
       .catch(() => setFetchError('Fetching data failed'))
-  }, [])
+  }, [userId])
 
   if (fetchError) {
-    console.log("RETURNIGN ERROR")
     return <div>something went wrong</div>;
   }
 
@@ -73,5 +73,13 @@ const App = () => {
     </div>
   );
 }
+
+App.propTypes = {
+  match: shape({
+    params: shape({
+      userId: string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default App;
